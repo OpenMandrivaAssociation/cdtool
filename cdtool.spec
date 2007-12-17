@@ -12,7 +12,6 @@ Url: http://hinterhof.net/cdtool/
 Source: http://hinterhof.net/cdtool/dist/%name-%version.tar.bz2
 Patch0: cdtool-configure.patch
 Conflicts: cdp
-Buildroot: %{_tmppath}/%{name}-buildroot
 
 %description
 A package of command-line utilities to play and
