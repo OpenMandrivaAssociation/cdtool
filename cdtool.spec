@@ -1,12 +1,11 @@
 Summary:	Powerful command line CDROM player and tools
 Name:		cdtool
 Version:	2.1.8
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2
 Group:		Sound
 URL:		http://hinterhof.net/cdtool/
 Source0:	http://hinterhof.net/cdtool/dist/%name-%version.tar.bz2
-Patch0:		cdtool-configure.patch
 Buildroot:	%{_tmppath}/%{name}-buildroot
 
 %description
@@ -19,11 +18,12 @@ discs usable by cdinfo, etc.
 %prep
 rm -rf %{buildroot}
 %setup -q
-%patch0 -p1
+sed -i -e 's, -o root,,g' Makefile.in
+sed -i -e 's,/lib,/%{_lib},g' Makefile.in
 
 %build
 %configure
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+make RPM_OPT_FLAGS="%{optflags}"
 
 %install
 %makeinstall
@@ -40,6 +40,6 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 %{_libdir}/cdtool/*
 %defattr(644,root,root,755)
-%doc README COPYING INSTALL
+%doc README INSTALL
 
 
