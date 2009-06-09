@@ -6,6 +6,8 @@ License:	GPLv2
 Group:		Sound
 URL:		http://hinterhof.net/cdtool/
 Source0:	http://hinterhof.net/cdtool/dist/%name-%version.tar.bz2
+# fixes error: conflicting types for 'getline' 09 Jun 2009
+Patch0:		%{name}-2.1.8-fix-getline.spec
 Buildroot:	%{_tmppath}/%{name}-buildroot
 
 %description
@@ -18,6 +20,7 @@ discs usable by cdinfo, etc.
 %prep
 rm -rf %{buildroot}
 %setup -q
+%patch0 -p1
 sed -i -e 's, -o root,,g' Makefile.in
 sed -i -e 's,/lib,/%{_lib},g' Makefile.in
 
