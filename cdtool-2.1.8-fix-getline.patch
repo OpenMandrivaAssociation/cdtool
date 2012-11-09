@@ -1,0 +1,109 @@
+diff -p -up cdtool-2.1.8/cdown.c.ori cdtool-2.1.8/cdown.c
+--- cdtool-2.1.8/cdown.c.ori	2009-06-09 21:03:00.000000000 +0200
++++ cdtool-2.1.8/cdown.c	2009-06-09 21:06:51.000000000 +0200
+@@ -325,7 +325,7 @@ int netconnect(char *hostname, int port,
+ }
+ 
+ /************************************************************************/
+-/* Procedure:  getline
++/* Procedure:  getline_
+  * Purpose:    read a line of text from the CDDB server
+  * 
+  * Inputs:     
+@@ -333,14 +333,14 @@ int netconnect(char *hostname, int port,
+  * Returns:    The line of text
+  * Notes:  
+  *   1. The CDDB databases use \r\n to end lines.  All lines returned
+- *      by getline() have the \r and \n stripped.
++ *      by getline_() have the \r and \n stripped.
+  *   2. Non-reentrant: the memory buffer returned previously is
+  *      recycled
+  *   3. Do NOT modify the contents of the returned buffer past the
+  *      NULL - data from the network is stored there
+  */
+ /************************************************************************/
+-char *getline(void) {
++char *getline_(void) {
+   static char *buffer = NULL;
+   static char *lastline = NULL;
+   static int buffered = 0;
+@@ -451,7 +451,7 @@ void readinfo(char *categ, char *discid)
+   char *cdtitle;
+ 
+   netprintf(sock, "cddb read %s %s\n", categ, discid);
+-  message = getline();
++  message = getline_();
+   switch (atoi(message)) {
+     case 401: fprintf(stderr, "error: entry not found\n"); return;
+     case 402: fprintf(stderr, "error: server error\n"); return;
+@@ -461,13 +461,13 @@ void readinfo(char *categ, char *discid)
+     default: fprintf(stderr, "error: bad message: %s\n", message); return;
+   }
+   while (iRawMode) {	/* infinite loop, or skip if !iRawMode */
+-    message = getline();
++    message = getline_();
+     if (!strcmp (message, "."))
+       return;
+     printf ("%s\r\n", message);
+   }
+   do {
+-    message = getline();
++    message = getline_();
+     firstword = strchr(message, '=');
+     if (firstword != NULL) {
+       *firstword = '\0';
+@@ -511,7 +511,7 @@ void query(void) {
+   int input = 0;
+   int exact = 1;
+ 
+-  message = getline();
++  message = getline_();
+   switch (atoi(message)) {
+     case 403: fprintf(stderr, "error: database entry is corrupt\n"); return;
+     case 409: fprintf(stderr, "error: no handshake\n"); return;
+@@ -523,7 +523,7 @@ void query(void) {
+   if (!exact) {
+     fprintf(stderr, "CD has no exact match\n 0: None\n");
+     do {
+-      message = getline();
++      message = getline_();
+       if (strcmp(message, ".") != 0) {
+         matches = realloc(matches, sizeof(char*) * (++count));
+         fprintf(stderr, " %d: ", count); printcd(message);
+@@ -628,15 +628,15 @@ char *gethname(void) {
+ void parsesites(void) {
+   char *buffer;
+ 
+-  buffer = getline();
++  buffer = getline_();
+   switch (atoi(buffer)) {
+     case 210: break;		/* OK */
+     case 401: fprintf(stderr, "error: no site list available\n"); return;
+   }
+-  buffer = getline();
++  buffer = getline_();
+   do {
+     printf("%s\n", buffer);
+-  } while (strcmp(buffer = getline(), ".") != 0);
++  } while (strcmp(buffer = getline_(), ".") != 0);
+ }
+ 
+ /************************************************************************/
+@@ -755,7 +755,7 @@ int main(int argc, char *argv[]) {
+       exit(3);
+   }
+ 
+-  bleh = getline();
++  bleh = getline_();
+   if (!signon(bleh)) { 
+       errormsg("%s:  signon error on host %s", progname, pszHost);
+       close(sock); 
+@@ -773,7 +773,7 @@ int main(int argc, char *argv[]) {
+     getuname(), gethname(), progname, VERSIONSTRING);
+   
+   /* get welcome message */
+-  bleh = getline();
++  bleh = getline_();
+   if (!welcome(bleh)) { 
+       errormsg("%s: bad welcome message [%s]", progname, bleh);
+       close(sock); 
