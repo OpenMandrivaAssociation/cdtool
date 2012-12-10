@@ -46,3 +46,44 @@ rm -rf %{buildroot}
 %doc README INSTALL
 
 
+
+
+%changelog
+* Thu Dec 09 2010 Oden Eriksson <oeriksson@mandriva.com> 2.1.8-7mdv2011.0
++ Revision: 616991
+- the mass rebuild of 2010.0 packages
+
+* Tue Jun 09 2009 Jérôme Brenier <incubusss@mandriva.org> 2.1.8-6mdv2010.0
++ Revision: 384520
+- fix getline error
+- rebuild
+
+* Wed Jul 23 2008 Thierry Vignaud <tv@mandriva.org> 2.1.8-5mdv2009.0
++ Revision: 243469
+- rebuild
+
+* Thu Feb 21 2008 Adam Williamson <awilliamson@mandriva.org> 2.1.8-3mdv2008.1
++ Revision: 173777
+- fix hardcoded /lib with %%_lib (broke half the commands on x86_64, #37975)
+- replace configure.patch with substitions
+
+* Mon Jan 28 2008 Adam Williamson <awilliamson@mandriva.org> 2.1.8-2mdv2008.1
++ Revision: 159037
+- rename cdplay to cdplay-cdtool to fix #21020, drop conflict with cdp
+- new license policy
+- rewrap description
+- clean spec
+
+* Fri Dec 21 2007 Olivier Blin <oblin@mandriva.com> 2.1.8-1mdv2008.1
++ Revision: 136290
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Thu Nov 30 2006 Lenny Cartier <lenny@mandriva.com> 2.1.8-1mdv2007.0
++ Revision: 89252
+- Update to 2.1.8 (sorry rtp, joey potter owns me)
+- Import cdtool
+
