@@ -1,7 +1,7 @@
 Summary:	Powerful command line CDROM player and tools
 Name:		cdtool
 Version:	2.1.8
-Release:	%mkrel 7
+Release:	8
 License:	GPLv2
 Group:		Sound
 URL:		http://hinterhof.net/cdtool/
