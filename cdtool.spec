@@ -4,7 +4,7 @@ Version:	2.1.8
 Release:	8
 License:	GPLv2
 Group:		Sound
-URL:		http://hinterhof.net/cdtool/
+URL:		https://hinterhof.net/cdtool/
 Source0:	http://hinterhof.net/cdtool/dist/%{name}-%{version}.tar.bz2
 # fixes error: conflicting types for 'getline' 09 Jun 2009
 Patch0:		%{name}-2.1.8-fix-getline.patch
