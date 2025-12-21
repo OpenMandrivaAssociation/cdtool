@@ -9,6 +9,11 @@ Source0:	http://hinterhof.net/cdtool/dist/%{name}-%{version}.tar.bz2
 # fixes error: conflicting types for 'getline' 09 Jun 2009
 Patch0:		%{name}-2.1.8-fix-getline.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 A package of command-line utilities to play and catalog audio CD-ROMs.
 This package includes cdstart, cdpause, cdstop, cdeject, and
